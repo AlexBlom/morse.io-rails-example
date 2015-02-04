@@ -1,14 +1,36 @@
 #README
 
-This README provides a quick example of building contextual
-Gmail/Outlook apps with morse.io.
+This code base provides a basic working example email integration to
+[https://morse.io"](morse.io) with Rails 4. morse.io is used to build
+Gmail & Outlook apps that are context aware in <1hr.
+
 See [https://morse.io/developers](https://morse.io/developers) for full documentation.
 
-At a high level, morse.io makes it fast to build context-driven email apps which appear next to Gmail & Outlook. You simply create a morse.io App, set an Application Url (probably to the url of this rails app - where we direct your requests) and resolve certain events.
+##Getting Started
+1 - Read more about developing morse.io email apps
+[https://morse.io/developers](link)
 
-##Application Url Structure, Events and Params
+2 - Create a new morse.io app
+[https://morse.io/developers/apps/new](link)]
 
-An event refers to user installing / uninstalling your app, or an instance where it is being rendered next to an inbox.There is an assumption your application has implemented each route and has support for each event.
+3 - Clone this repository
+
+4 - Modify app/controllers/email_app_controller.rb to set your
+application secret
+
+##Overview
+
+morse.io apps are really just canvas applications rendered through an
+iframe. When creating an application you set a https application url.
+morse.io will then communicate with your apps via events.
+
+An event refers to a user uninstalling, installing, attempting to edit
+or having your app rendered next to an email within the Gmail / Outlook
+inbox (/show).
+
+In the event of a show action, paramaters to identify the active contact
+(contact_name & contact_email). Use this to scope contextually relevant
+information to your app.
 
 *Base url for all requests:*
 
@@ -16,21 +38,13 @@ An event refers to user installing / uninstalling your app, or an instance where
   https://ApplicationUrl/MorseUserEmail/MorseInstallId
 ```
 
-The main event is the /show, which occurs when your app is rendered
-next to email (via the morse.io sidebar and an iframe).
-
-Additional parameters are available in this request to identify active contacts on the email, allowing you to scope your views based on email context.
-
 For current event & available parameter documentation, see [https://morse.io/developers/docs/events](https://morse.io/developers/docs/events).
 
 ##Where to look
 
-Given this repository is demonstrative, no actual models have been stubbed.
-
 The modified files are:
 - config/routes.rb
 - app/controllers/email_app_controller.rb
-- app/views/email_apps/
 
 ##Further support
 See [https://morse.io/developers](https://morse.io/developers).
