@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   # GET /edit:  User is trying to edit apps settings
   # DELETE:     User has uninstalled your app
 
-  resources :email_app, path: '/:user_email/:install_id', only: [:edit, :destroy] do
-    post 'show', to: "email_app#show"
+  resources :email_app, path: ':user_email', 
+    param: :install_id,
+    only: [:edit, :destroy], 
+    constraints: { user_email: /[^\/]+/ } do
+      post 'show', to: "email_app#show"
   end
 end
